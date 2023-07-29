@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { View, Pressable, StyleSheet } from 'react-native'
 import DuckSVG from '../assets/icons/duck.svg'
 import LifelineSVG from '../assets/icons/lifeline.svg'
@@ -8,13 +8,10 @@ const Sound = require('react-native-sound')
 Sound.setCategory('Playback')
 
 type TProps = {
-  row: number
-  item: { isPressed: boolean; value: number }
-  itemIndex: number
+  item: number
   duckCount: number
   setDuckCount: (param: number) => void
-  grid: { isPressed: boolean; value: number }[][]
-  setGrid: (cb: (param: { isPressed: boolean; value: number }[][]) => { isPressed: boolean; value: number }[][]) => void
+  setGrid: (param: number[][]) => void
 }
 
 const getItem = (value: number): JSX.Element => {
@@ -30,19 +27,26 @@ const getItem = (value: number): JSX.Element => {
 
 let counter = 0
 
-const Item: FC<TProps> = ({ row, item, itemIndex, duckCount, setDuckCount, grid, setGrid }): JSX.Element => {
+const Item: FC<TProps> = ({
+  item,
+  duckCount,
+  setDuckCount,
+  setGrid,
+}): JSX.Element => {
   const krya = new Sound('krya.mp3', Sound.MAIN_BUNDLE)
+  const [isPressed, setPressed] = useState<boolean>(false)
 
-  const handlePress = (row: number, item: number, itemIndex: number): void => {
-    if (item === 0) return
-    console.log(row, item, itemIndex)
-    // const newGrid = grid.splice(row, 1, grid[row].splice(itemIndex, 1, { isPressed: true, value: item }))
-
-    console.log(grid)
+  const handlePress = (item: number,): void => {
+    if (item === 0 || isPressed) return
     krya.play()
+    setPressed(true)
     counter++
     if (duckCount === counter) {
       counter = 0
+      const [newGrid, count] = generateGrid()
+      setGrid(newGrid)
+      setDuckCount(count)
+      setPressed(false)
     }
   }
 
@@ -51,11 +55,12 @@ const Item: FC<TProps> = ({ row, item, itemIndex, duckCount, setDuckCount, grid,
   }, [])
 
   return (
-    <View style={styles.item}>
-      {!item.isPressed ? (
-        <Pressable onPress={() => handlePress(row, item.value, itemIndex)}>{getItem(item.value)}</Pressable>
-      ) : null}
-    </View>
+    <Pressable
+      onPress={() => handlePress(item)}
+      style={[styles.item, isPressed ? styles.hidden : null]}
+    >
+      {getItem(item)}
+    </Pressable>
   )
 }
 
@@ -65,6 +70,9 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  hidden: {
+    opacity: 0,
   },
 })
 
