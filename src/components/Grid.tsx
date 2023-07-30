@@ -1,36 +1,30 @@
-import { FC, useState } from 'react'
-import { View, StyleSheet, StyleProp, ViewStyle, Button } from 'react-native'
-import Item from './Item'
-import { generateGrid } from '../utils/generateGrid'
+import { FC, useState } from 'react';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import Item from './Item';
+import { generateGrid } from '../utils/generateGrid';
+const Sound = require('react-native-sound');
+Sound.setCategory('Playback');
 
 type TProps = {
-  style?: StyleProp<ViewStyle>
-}
-
-const [initialGrid, count] = generateGrid()
+  style?: StyleProp<ViewStyle>;
+};
 
 const Grid: FC<TProps> = ({ style }): JSX.Element => {
-  const [grid, setGrid] = useState<number[][]>(initialGrid)
-  const [duckCount, setDuckCount] = useState<number>(count)
-
-  console.log('render grid')
+  const [grid, setGrid] = useState<number[]>(generateGrid);
 
   return (
     <View style={[styles.grid, style]}>
-      {grid.map((item, row) =>
-        item.map((item, itemIndex) => (
-          <Item
-            item={item}
-            duckCount={duckCount}
-            setDuckCount={setDuckCount}
-            setGrid={setGrid}
-            key={'id' + Math.random().toString(16).slice(2)}
-          />
-        ))
-      )}
+      {grid.map((item) => (
+        <Item
+          item={item}
+          setGrid={setGrid}
+          krya={item === 1 ? new Sound('krya.mp3', Sound.MAIN_BUNDLE) : null}
+          key={'id' + Math.random().toString(16).slice(2)}
+        />
+      ))}
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   grid: {
@@ -39,6 +33,6 @@ const styles = StyleSheet.create({
     rowGap: 20,
     alignContent: 'center',
   },
-})
+});
 
-export default Grid
+export default Grid;

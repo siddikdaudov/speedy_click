@@ -1,13 +1,13 @@
-export const generateGrid = (): [number[][], number] => {
-  const result: number[][] = [[], [], []]
-  let duckCount: number = 0
+export const generateGrid = (): number[] => {
+  const icons: number[] = [1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1];
+  let currentIndex = icons.length;
+  let randomIndex;
 
-  for (let i = 0; i < result.length; i++) {
-    for (let j = 0; j < 4; j++) {
-      const oneOrZero = Math.random() >= 0.5 ? 1 : 0
-      oneOrZero === 1 ? duckCount++ : duckCount
-      result[i].push(oneOrZero)
-    }
+  while (currentIndex != 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [icons[currentIndex], icons[randomIndex]] = [icons[randomIndex], icons[currentIndex]];
   }
-  return [result, duckCount]
-}
+
+  return icons;
+};
