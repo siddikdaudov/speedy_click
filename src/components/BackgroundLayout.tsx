@@ -6,7 +6,7 @@ type TProps = PropsWithChildren
 
 const BackgroundLayout: FC<TProps> = ({ children }): JSX.Element => {
   return (
-    <ImageBackground source={require('../assets//background.png')} style={styles.background}>
+    <ImageBackground source={require('../assets/background.png')} style={styles.background}>
       {children}
     </ImageBackground>
   )

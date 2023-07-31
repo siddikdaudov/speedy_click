@@ -1,11 +1,16 @@
-import { View, StyleSheet } from 'react-native'
-import PoolSVG from '../assets/icons/pool.svg'
-import Grid from '../components/Grid'
+import { View, StyleSheet } from 'react-native';
+import PoolSVG from '../assets/icons/pool.svg';
+import Grid from '../components/Grid';
+import Timer from '../components/Timer';
 
 const GameScreen = (): JSX.Element => {
   return (
     <View style={styles.wrapper}>
-      <View style={styles.sections} />
+      <View style={styles.sections}>
+        <View style={styles.top}>
+          <Timer />
+        </View>
+      </View>
       <View style={styles.sections}>
         <View style={styles.pool}>
           <PoolSVG style={styles.poolSVG} />
@@ -13,8 +18,8 @@ const GameScreen = (): JSX.Element => {
         </View>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -22,6 +27,11 @@ const styles = StyleSheet.create({
   },
   sections: {
     flex: 0.5,
+  },
+  top: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
   },
   pool: {
     position: 'relative',
@@ -39,6 +49,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-})
+});
 
-export default GameScreen
+export default GameScreen;
