@@ -5,7 +5,7 @@ import BackgroundLayout from './src/components/BackgroundLayout'
 function App(): JSX.Element {
   return (
     <>
-      <StatusBar barStyle={'light-content'} backgroundColor={'#FED4B0'} />
+      <StatusBar barStyle={'light-content'} backgroundColor={'#FFB58E'} />
       <BackgroundLayout>
         <GameScreen />
       </BackgroundLayout>

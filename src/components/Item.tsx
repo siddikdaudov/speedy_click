@@ -1,7 +1,7 @@
 import { FC, useRef, useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-import DuckSVG from '../assets/icons/duck.svg';
-import LifelineSVG from '../assets/icons/lifeline.svg';
+import DuckSVG from '../assets/icons/duckShadow.svg';
+import LifelineSVG from '../assets/icons/lifelineShadow.svg.svg';
 import { SCREEN_WIDTH } from '../constants';
 import { generateGrid } from '../utils/generateGrid';
 
