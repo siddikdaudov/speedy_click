@@ -1,4 +1,5 @@
 import { View, StyleSheet } from 'react-native';
+import Bubbles from '../components/Bubbles';
 import PoolSVG from '../assets/icons/pool.svg';
 import Grid from '../components/Grid';
 import Timer from '../components/Timer';
@@ -10,6 +11,7 @@ const GameScreen = (): JSX.Element => {
         <View style={styles.top}>
           <Timer />
         </View>
+        <Bubbles />
       </View>
       <View style={styles.sections}>
         <View style={styles.pool}>
