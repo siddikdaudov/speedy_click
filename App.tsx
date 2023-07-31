@@ -1,16 +1,20 @@
-import { StatusBar } from 'react-native'
-import GameScreen from './src/screens/GameScreen'
-import BackgroundLayout from './src/components/BackgroundLayout'
+import { StatusBar } from 'react-native';
+import MainStack from './src/navigation/MainStack';
+import { NavigationContainer } from '@react-navigation/native';
 
-function App(): JSX.Element {
+const MyApp = (): JSX.Element => {
   return (
     <>
       <StatusBar barStyle={'light-content'} backgroundColor={'#FFB58E'} />
-      <BackgroundLayout>
-        <GameScreen />
-      </BackgroundLayout>
+      <NavigationContainer>
+        <MainStack />
+      </NavigationContainer>
     </>
-  )
-}
+  );
+};
 
-export default App
+const App = (): JSX.Element => {
+  return <MyApp />;
+};
+
+export default App;

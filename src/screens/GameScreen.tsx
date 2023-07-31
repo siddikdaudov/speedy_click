@@ -5,6 +5,7 @@ import Grid from '../components/Grid';
 import Timer from '../components/Timer';
 
 const GameScreen = (): JSX.Element => {
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.sections}>
