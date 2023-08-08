@@ -5,6 +5,7 @@ import Bubbles from '../components/Bubbles';
 import Button from '../components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackScreenProps } from '../navigation/types';
+import LottieView from 'lottie-react-native';
 
 const HomeScreen = (): JSX.Element => {
   const { navigate } = useNavigation<RootStackScreenProps<'Game'>['navigation']>();
@@ -21,9 +22,33 @@ const HomeScreen = (): JSX.Element => {
         </View>
         <View style={styles.sections}>
           <View style={styles.frame}>
-            <Button title='Заработать монеты' onPress={handleEarnCoins} />
-            <Button title='Режим с таймером' onPress={() => null} />
-            <Button title='Бесконечный режим' onPress={() => null} />
+            <View style={styles.button}>
+              <LottieView
+                source={require('../assets/lottie/coin.json')}
+                autoPlay
+                loop
+                style={{ width: 80, height: 80, bottom: 5 }}
+              />
+              <Button title='Заработать монеты' onPress={handleEarnCoins} style={{ flex: 1 }} />
+            </View>
+            <View style={styles.button}>
+              <LottieView
+                source={require('../assets/lottie/timer.json')}
+                autoPlay
+                loop
+                style={{ width: 80, height: 80, bottom: 5 }}
+              />
+              <Button title='Режим с таймером' onPress={() => null} style={{ flex: 1 }} />
+            </View>
+            <View style={styles.button}>
+              <LottieView
+                source={require('../assets/lottie/infinity.json')}
+                autoPlay
+                loop
+                style={{ width: 80, height: 80, bottom: 5 }}
+              />
+              <Button title='Бесконечный режим' onPress={() => null} />
+            </View>
           </View>
         </View>
       </View>
@@ -41,8 +66,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   frame: {
-    padding: 30,
     bottom: 30,
+  },
+  button: {
+    flexDirection: 'row',
+    gap: 30,
   },
 });
 
