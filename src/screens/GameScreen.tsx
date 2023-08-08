@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { useState, useRef, useEffect } from 'react';
+import { View, StyleSheet, Text, Animated, Easing } from 'react-native';
 import { RootStackScreenProps } from '../navigation/types';
 import Bubbles from '../components/Bubbles';
 import PoolSVG from '../assets/icons/pool.svg';
@@ -8,12 +8,18 @@ import Timer from '../components/Timer';
 import BackgroundLayout from '../components/BackgroundLayout';
 import Dialog from '../components/Dialog';
 import Button from '../components/Button';
+import Countdown from '../components/Countdown';
 import { useBackHandler } from '../hooks/useBackHandler';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { GAME_TYPES } from '../constants';
 
 const GameScreen = (): JSX.Element => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const { navigate } = useNavigation<RootStackScreenProps<'Home'>['navigation']>();
+  const {
+    params: { type: gameType },
+  } = useRoute<RootStackScreenProps<'Game'>['route']>();
+  const isTimerGameType = gameType === GAME_TYPES.coins || gameType === GAME_TYPES.timer || false;
 
   const handleNavigate = () => {
     navigate('Home');
@@ -33,6 +39,7 @@ const GameScreen = (): JSX.Element => {
 
   return (
     <BackgroundLayout>
+      <Countdown show={isTimerGameType} />
       <View style={styles.wrapper}>
         <View style={styles.sections}>
           <View style={styles.top}>

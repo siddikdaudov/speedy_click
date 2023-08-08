@@ -6,12 +6,13 @@ import Button from '../components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackScreenProps } from '../navigation/types';
 import LottieView from 'lottie-react-native';
+import { GAME_TYPES } from '../constants';
 
 const HomeScreen = (): JSX.Element => {
   const { navigate } = useNavigation<RootStackScreenProps<'Game'>['navigation']>();
 
   const handleEarnCoins = () => {
-    navigate('Game');
+    navigate('Game', { type: GAME_TYPES.coins });
   };
 
   return (
