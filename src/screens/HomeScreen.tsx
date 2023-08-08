@@ -1,11 +1,16 @@
+import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import BackgroundLayout from '../components/BackgroundLayout';
 import Bubbles from '../components/Bubbles';
 import Button from '../components/Button';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackScreenProps } from '../navigation/types';
 
 const HomeScreen = (): JSX.Element => {
+  const { navigate } = useNavigation<RootStackScreenProps<'Game'>['navigation']>();
+
   const handleEarnCoins = () => {
-    console.log('Кнопка нажата');
+    navigate('Game');
   };
 
   return (
@@ -15,7 +20,11 @@ const HomeScreen = (): JSX.Element => {
           <Bubbles />
         </View>
         <View style={styles.sections}>
-          <Button title='Заработать монеты' onPress={handleEarnCoins} />
+          <View style={styles.frame}>
+            <Button title='Заработать монеты' onPress={handleEarnCoins} />
+            <Button title='Режим с таймером' onPress={() => null} />
+            <Button title='Бесконечный режим' onPress={() => null} />
+          </View>
         </View>
       </View>
     </BackgroundLayout>
@@ -30,6 +39,10 @@ const styles = StyleSheet.create({
     flex: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  frame: {
+    padding: 30,
+    bottom: 30,
   },
 });
 

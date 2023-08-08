@@ -21,12 +21,12 @@ const duckCount = 11;
 
 const Item: FC<TProps> = ({ item, setGrid, krya }): JSX.Element => {
   const [isPressed, setPressed] = useState<boolean>(false);
-  const soundRef = useRef<any>(krya);
+  const sound = krya;
 
   const handlePress = (item: number): void => {
     if (item === 0 || isPressed) return;
 
-    soundRef.current.play(() => soundRef.current.release());
+    sound.play(() => sound.release());
     setPressed(true);
     counter++;
     if (duckCount === counter) {
