@@ -1,40 +1,12 @@
-import { useRef, useEffect, useState } from 'react';
-import { View, Animated, StyleSheet, Button, Easing, Image } from 'react-native';
+import { FC, useRef, useEffect } from 'react';
+import { View, Animated, StyleSheet } from 'react-native';
 import DuckHeadSVG from '../assets/icons/duckHead.svg';
 
-const timerValue = 200;
-const oneSecond = 1000;
-const bonusTime = 1000;
+type TProps = {
+  timerAnimation: Animated.Value;
+};
 
-const Timer = () => {
-  let duration = 10000;
-  const timerAnimation = useRef(new Animated.Value(timerValue)).current;
-
-  const animate = () => {
-    Animated.timing(timerAnimation, {
-      toValue: 0,
-      duration,
-      useNativeDriver: true,
-      easing: Easing.linear,
-    }).start(({ finished }) => {
-      console.log('finished');
-    });
-  };
-
-  const reset = () => {
-    timerAnimation.stopAnimation((value) => {
-      const remainingTime = Math.floor(value) / (timerValue / 10);
-      if (value < timerValue) {
-        duration = remainingTime * oneSecond + bonusTime;
-        timerAnimation.setValue(Math.floor(value) + 20);
-      } else {
-        duration = 10000;
-        timerAnimation.setValue(timerValue);
-      }
-      animate();
-    });
-  };
-
+const Timer: FC<TProps> = ({ timerAnimation }) => {
   return (
     <View style={styles.wrapper}>
       <Animated.View style={[styles.indicator, { transform: [{ translateX: timerAnimation }] }]}>

@@ -7,9 +7,10 @@ const AnimatedLottieView = Animated.createAnimatedComponent(LottieView);
 
 type TProps = {
   show: boolean;
+  startAnimateTimer: () => void;
 };
 
-const Countdown: FC<TProps> = ({ show }): JSX.Element => {
+const Countdown: FC<TProps> = ({ show, startAnimateTimer }): JSX.Element => {
   const timerAnimation = useRef(new Animated.Value(0));
   const [isOpen, setOpen] = useState(show);
 
@@ -20,8 +21,11 @@ const Countdown: FC<TProps> = ({ show }): JSX.Element => {
         duration: 3000,
         easing: Easing.linear,
         useNativeDriver: false,
-      }).start(() => setOpen(false));
-    }, 1000);
+      }).start(() => {
+        setOpen(false);
+        startAnimateTimer();
+      });
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 

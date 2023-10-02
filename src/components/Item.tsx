@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import { FC, MutableRefObject, useRef, useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import DuckSVG from '../assets/icons/duckShadow.svg';
 import LifelineSVG from '../assets/icons/lifelineShadow.svg.svg';
@@ -9,6 +9,8 @@ type TProps = {
   item: number;
   setGrid: (param: number[]) => void;
   krya: any;
+  resetTimer: () => void;
+  prizeCoins: MutableRefObject<number>;
 };
 
 const icons: Map<number, JSX.Element> = new Map([
@@ -19,7 +21,7 @@ const icons: Map<number, JSX.Element> = new Map([
 let counter = 0;
 const duckCount = 11;
 
-const Item: FC<TProps> = ({ item, setGrid, krya }): JSX.Element => {
+const Item: FC<TProps> = ({ item, setGrid, krya, resetTimer, prizeCoins }): JSX.Element => {
   const [isPressed, setPressed] = useState<boolean>(false);
   const sound = krya;
 
@@ -29,11 +31,13 @@ const Item: FC<TProps> = ({ item, setGrid, krya }): JSX.Element => {
     sound.play(() => sound.release());
     setPressed(true);
     counter++;
+    prizeCoins.current += 1;
     if (duckCount === counter) {
       counter = 0;
       const newGrid = generateGrid();
       setGrid(newGrid);
       setPressed(false);
+      resetTimer();
     }
   };
 
